@@ -90,8 +90,23 @@
             text-align: center;
         }
 
+        .form {
+            display: none; /* Hide forms by default */
+        }
+
 
     </style>
+
+<script>
+    function showForm(formId) {
+        // Hide all forms
+        document.getElementById('formUser').style.display = 'none';
+        document.getElementById('formStaff').style.display = 'none';
+        
+        // Show the selected form
+        document.getElementById(formId).style.display = 'block';
+    }
+</script>
 </head>
 <body>
 
@@ -101,25 +116,37 @@
     </div>
 
     <div class="login-container">
-        <h2>User Login</h2>
-
-        <form action="#">
-            <input type="text" class="input-field" placeholder="Enter Patient ID" required>
-            <input type="text" class="input-field" placeholder="Enter NHS Number" required>
-
-            <button class="btn" style="background-color: #003087;">User Login</button>
-            <button class="btn" style="background-color: #41B6E6;">Staff Login</button>
-            
-        </form>
-
 
         <div class="divider">
-            <span>Choose login type then press enter button</span>
+            <span>Choose login type</span>
         </div>
 
-        <button type="submit" class="btn">Enter</button>
-
         
+        <button onclick="showForm('formUser')" class="btn" style="background-color: #003087;">User Login</button>
+        <button onclick="showForm('formStaff')" class="btn" style="background-color: #41B6E6;">Staff Login</button>
+        
+        
+
+        <form id = 'formUser' action="#" class = "form" >
+            <h2>User Login</h2>
+
+            <input type="text" class="input-field" placeholder="Enter Patient ID" required>
+            <input type="text" class="input-field" placeholder="Enter NHS Number" required>     
+        </form>
+
+        <form id = 'formStaff' action="#" class = "form" >
+            <h2>Staff Login</h2>
+
+            <input type="text" class="input-field" placeholder="Enter Patient ID" required>
+            <input type="text" class="input-field" placeholder="Enter NHS Number" required>     
+        </form>
+
+        <div class="divider">
+            <span>Press enter once complete</span>
+        </div>
+
+        <button id = "enter button" type="submit" class="btn">Enter</button>
+   
     </div>
 
 </body>
