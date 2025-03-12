@@ -3,7 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Appointments</title>  
+    <title>Appointments</title> 
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 550px;
+            margin: 0 auto; 
+            margin-bottom: 20px;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .info, .appointments {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+        .info p, .appointments table {
+            margin: 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border-bottom: 1px solid #ddd;
+            padding: 8px;
+            text-align: left; 
+        }
+        button {
+            display: inline-block;
+        }
+    </style>
+
+
+
 </head>
 <body>
 <?php
@@ -16,9 +58,8 @@
     $staffID = htmlspecialchars($_POST['staffID']);
 
 
-    echo "<h1> COMP 8870 Healthcare </h1>"; 
-    echo " <div class='divider'> <h4> <b>Doctor Information:</b> Displaying information for $name <h4> </div> ";
-
+    echo "<h1 class = 'header'> COMP 8870 Healthcare </h1>"; 
+    echo "<div class='container'><strong>Doctor Information:</strong> Displaying information for $name (sID = $staffID) <button class='btn btn-primary'> Exit</button> </div>";
 	try {
 		$conn = new PDO("mysql:host=$host;dbname=$dbname", $user, $pwd);
 		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);    
@@ -34,11 +75,14 @@
 		$handle->execute();
 		$res = $handle->fetchAll();
 		
-        echo "<ul>";
-			foreach($res as $row) {
-		echo "<li> Staff:".$row['sName']."Patient -".$row['pName']." - Date:".$row['aDate']."- Time:".$row['aTime']."</li>";
-		}
-		echo "</ul>";
+        echo "<div class='container'>";
+        echo "<table>";
+        echo "<tr><th>Patient</th><th>Date</th><th>Time</th><th>Action</th></tr>";
+        foreach($res as $row) {
+            echo "</td><td>".$row['pName']."</td><td>".$row['aDate']."</td><td>".$row['aTime']."</td><td><div class='d-flex justify-content-center'> <button class='btn btn-primary'> Move</button> </div></td></tr>";
+        }
+        echo "</table>";
+        echo "</div>";
 		// code that uses $conn
 		$conn = null; 
 	} catch (PDOException $e) {
