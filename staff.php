@@ -18,7 +18,7 @@
                 ON a.pID = p.pID
                 LEFT JOIN Staff s
                 ON a.sID = s.sID 
-                WHERE sName =   ;"
+                WHERE sName =   ;";
 		$handle = $conn->prepare($sql);
 		$handle->execute();
 		$res = $handle->fetchAll();
