@@ -49,6 +49,7 @@
 </head>
 <body>
 <?php
+
 	$host = 'dragon.ukc.ac.uk';
 	$dbname = 'lg565';
 	$user = 'lg565';
@@ -58,37 +59,65 @@
     $staffID = htmlspecialchars($_POST['staffID']);
 
 
-    echo "<h1 class = 'header'> COMP 8870 Healthcare </h1>"; 
-    echo "<div class='container'><strong>Doctor Information:</strong> Displaying information for $name (sID = $staffID) <button class='btn btn-primary'> Exit</button> </div>";
-	try {
-		$conn = new PDO("mysql:host=$host;dbname=$dbname", $user, $pwd);
-		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);    
-        
-        $sql = "SELECT sName, pName, aDate, aTime  
+    $conn = new PDO("mysql:host=$host;dbname=$dbname", $user, $pwd);
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    // Prepare and bind
+    $stmt = $conn->prepare("SELECT sName, pName, aDate, aTime  
                 FROM Appointment a 
                 LEFT JOIN Patient p 
                 ON a.pID = p.pID
                 LEFT JOIN Staff s
                 ON a.sID = s.sID 
-                WHERE sName = '$name';";
-		$handle = $conn->prepare($sql);
-		$handle->execute();
-		$res = $handle->fetchAll();
+                WHERE s.sName = '$name' AND a.sID = '$staffID' ;");
+    
+    // Execute the statement
+    $stmt->execute();
+    
+    // Get the result
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+    if (count($result) > 0) {
+            // Credentials are correct, proceed with login
+            
+        echo "<h1 class = 'header'> COMP 8870 Healthcare </h1>"; 
+        echo "<div class='container'><strong>Doctor Information:</strong> Displaying information for $name (sID = $staffID) <button class='btn btn-primary' onclick=\"window.location.href='index.php';\">Exit</button> </div>";
+	    try {
+		        $conn = new PDO("mysql:host=$host;dbname=$dbname", $user, $pwd);
+		        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);    
+        
+                $sql = "SELECT sName, pName, aDate, aTime  
+                        FROM Appointment a 
+                        LEFT JOIN Patient p 
+                        ON a.pID = p.pID
+                        LEFT JOIN Staff s
+                        ON a.sID = s.sID 
+                        WHERE sName = '$name';";
+		        $handle = $conn->prepare($sql);
+		        $handle->execute();
+		        $res = $handle->fetchAll();
 		
-        echo "<div class='container'>";
-        echo "<table>";
-        echo "<tr><th>Patient</th><th>Date</th><th>Time</th><th>Action</th></tr>";
-        foreach($res as $row) {
+            echo "<div class='container'>";
+            echo "<table>";
+            echo "<tr><th>Patient</th><th>Date</th><th>Time</th><th>Action</th></tr>";
+            foreach($res as $row) {
             echo "</td><td>".$row['pName']."</td><td>".$row['aDate']."</td><td>".$row['aTime']."</td><td><div class='d-flex justify-content-center'> <button class='btn btn-primary'> Move</button> </div></td></tr>";
+            }
+            echo "</table>";
+            echo "</div>";
+		    // code that uses $conn
+		    $conn = null; 
+         } catch (PDOException $e) {
+		    echo "PDOException: ".$e->getMessage();
+	        }
+        } else {
+            // Credentials are incorrect, redirect to error page
+            header("Location: index.php");
+            exit();
         }
-        echo "</table>";
-        echo "</div>";
-		// code that uses $conn
-		$conn = null; 
-	} catch (PDOException $e) {
-		echo "PDOException: ".$e->getMessage();
-	}
+     
 ?>
+
 
 </body>
 </html>
