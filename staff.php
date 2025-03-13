@@ -50,27 +50,33 @@
 <body>
 <?php
 
+    session_start();
+
 
 	$host = 'dragon.ukc.ac.uk';
 	$dbname = 'lg565';
 	$user = 'lg565';
 	$pwd = 'rles3ev';
 
-	$name = htmlspecialchars($_POST['name']);
-    $staffID = htmlspecialchars($_POST['staffID']);
+	$_SESSION['name'] = htmlspecialchars($_POST['name']);
+    $_SESSION['staffID'] = htmlspecialchars($_POST['staffID']);
+
 
 
     $conn = new PDO("mysql:host=$host;dbname=$dbname", $user, $pwd);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    // Prepare and bind
+    // Prepare 
     $stmt = $conn->prepare("SELECT sName, pName, aDate, aTime  
                 FROM Appointment a 
                 LEFT JOIN Patient p 
                 ON a.pID = p.pID
                 LEFT JOIN Staff s
                 ON a.sID = s.sID 
-                WHERE s.sName = '$name' AND a.sID = '$staffID' ;");
+                WHERE s.sName = :name AND a.sID = :staffID ;");
+     
+     $stmt->bindParam(':name', $_SESSION['name']);
+     $stmt->bindParam(':staffID', $_SESSION['staffID']);
     
     // Execute the statement
     $stmt->execute();
@@ -82,21 +88,30 @@
             // Credentials are correct, proceed with login
             
         echo "<h1 class = 'header'> COMP 8870 Healthcare Appointments </h1>"; 
-        echo "<div class='container'><strong>Doctor Information:</strong> Displaying information for $name (sID = $staffID) <button class='btn btn-primary' onclick=\"window.location.href='index.php';\">Exit</button> </div>";
+        echo "<div class='container'><strong>Doctor Information:</strong> Displaying information for $_SESSION[name] (sID = $_SESSION[staffID]) <button class='btn btn-primary' onclick=\"window.location.href='index.php';\">Exit</button> </div>";
 	    try {
 		        $conn = new PDO("mysql:host=$host;dbname=$dbname", $user, $pwd);
 		        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);    
         
-                $sql = "SELECT sName, pName, aDate, aTime, s.sID AS sID 
-                        FROM Appointment a 
-                        LEFT JOIN Patient p 
-                        ON a.pID = p.pID
-                        LEFT JOIN Staff s
-                        ON a.sID = s.sID 
-                        WHERE sName = '$name';";
-		        $handle = $conn->prepare($sql);
-		        $handle->execute();
-		        $res = $handle->fetchAll();
+                $stmt = $conn->prepare("SELECT sName, pName, aDate, aTime, p.pID as pID 
+                FROM Appointment a 
+                LEFT JOIN Patient p 
+                ON a.pID = p.pID
+                LEFT JOIN Staff s
+                ON a.sID = s.sID 
+                WHERE s.sName = :name AND a.sID = :staffID ;");
+     
+                $stmt->bindParam(':name', $_SESSION['name']);
+                $stmt->bindParam(':staffID', $_SESSION['staffID']);
+
+                //$stmt = $pdo->prepare($sql);
+
+
+		        //$handle = $conn->prepare($sql);
+
+                
+		        $stmt->execute();
+		        $res = $stmt->fetchAll();
 		
             echo "<div class='container'>";
             echo "<table>";
@@ -105,7 +120,8 @@
             echo "</td><td>".$row['pName']."</td><td>".$row['aDate']."</td><td>".$row['aTime']."</td>";
             echo "<td><div class='d-flex justify-content-center'>   
                     <form action='move.php' method='post'>
-                        <input type='hidden' name='sID' value='".$staffID."'>
+                        <input type='hidden' name='sID' value='".$_SESSION['staffID']."'>
+                        <input type='hidden' name='pID' value='".$row['pID']."'>
                         <input type='hidden' name='aDate' value='".$row['aDate']."'>
                         <input type='hidden' name='aTime' value='".$row['aTime']."'>    
                         <button class='btn btn-primary'> Move</button> 

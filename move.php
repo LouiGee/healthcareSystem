@@ -56,6 +56,7 @@ $host = 'dragon.ukc.ac.uk';
 	$pwd = 'rles3ev';
 
 $sID =  $_POST['sID'];
+$pID = $_POST['pID'];
 $aDate = $_POST['aDate'];
 $aTime =  $_POST['aTime'];
 
@@ -76,15 +77,28 @@ try {
     $res = $handle->fetchAll();
 
 echo "<div class='container'>";
+
 echo "<form action='delegate.php' method='post'>";
 echo "<table>";
-echo "<tr><th>Name</th><th>Type</th><th>sID</th><th><button class='btn btn-primary'> Delegate</button></th></tr>";
+echo "<tr><th>Name</th><th>Type</th><th>sID</th><th></tr>";
+
 foreach($res as $row) {
+
 echo "</td><td>".$row['sName']."</td><td>".$row['sType']."</td><td>".$row['sID']."</td><td>";
-echo "<div class='d-flex justify-content-center'> <input type='radio' name='delegate_sID'> </div></td></tr>";
+
+echo "<div class='d-flex justify-content-center'> 
+        <input type='radio' name='delegate_sID' value='".$row['sID']."'> </div>
+        </td></tr>";
 }
 echo "</table>";
-echo "</form>";
+echo " <input type='hidden' name='oldsID' value='".$sID."'>
+       <input type='hidden' name='aDate' value='".$aDate."'>
+       <input type='hidden' name='aTime' value='".$aTime."'>
+       <input type='hidden' name='pID' value='".$pID."'>";
+
+echo  "<button class='btn btn-primary' type='submit'> Delegate</button></th></tr>";
+echo  "</form>";
+
 echo "</div>";
 // code that uses $conn
 $conn = null; 
