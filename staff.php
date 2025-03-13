@@ -50,6 +50,7 @@
 <body>
 <?php
 
+
 	$host = 'dragon.ukc.ac.uk';
 	$dbname = 'lg565';
 	$user = 'lg565';
@@ -80,13 +81,13 @@
     if (count($result) > 0) {
             // Credentials are correct, proceed with login
             
-        echo "<h1 class = 'header'> COMP 8870 Healthcare </h1>"; 
+        echo "<h1 class = 'header'> COMP 8870 Healthcare Appointments </h1>"; 
         echo "<div class='container'><strong>Doctor Information:</strong> Displaying information for $name (sID = $staffID) <button class='btn btn-primary' onclick=\"window.location.href='index.php';\">Exit</button> </div>";
 	    try {
 		        $conn = new PDO("mysql:host=$host;dbname=$dbname", $user, $pwd);
 		        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);    
         
-                $sql = "SELECT sName, pName, aDate, aTime  
+                $sql = "SELECT sName, pName, aDate, aTime, s.sID AS sID 
                         FROM Appointment a 
                         LEFT JOIN Patient p 
                         ON a.pID = p.pID
@@ -101,12 +102,24 @@
             echo "<table>";
             echo "<tr><th>Patient</th><th>Date</th><th>Time</th><th>Action</th></tr>";
             foreach($res as $row) {
-            echo "</td><td>".$row['pName']."</td><td>".$row['aDate']."</td><td>".$row['aTime']."</td><td><div class='d-flex justify-content-center'> <button class='btn btn-primary'> Move</button> </div></td></tr>";
+            echo "</td><td>".$row['pName']."</td><td>".$row['aDate']."</td><td>".$row['aTime']."</td>";
+            echo "<td><div class='d-flex justify-content-center'>   
+                    <form action='move.php' method='post'>
+                        <input type='hidden' name='sID' value='".$staffID."'>
+                        <input type='hidden' name='aDate' value='".$row['aDate']."'>
+                        <input type='hidden' name='aTime' value='".$row['aTime']."'>    
+                        <button class='btn btn-primary'> Move</button> 
+                    </form> 
+                 </div></td></tr>";
             }
             echo "</table>";
             echo "</div>";
 		    // code that uses $conn
 		    $conn = null; 
+
+
+
+
          } catch (PDOException $e) {
 		    echo "PDOException: ".$e->getMessage();
 	        }
