@@ -16,15 +16,21 @@ session_start();
      $pwd = 'rles3ev';
 
      
-     $newsID =  $_POST['newsID'];
-     $oldID =  $_POST['oldID'];
+     $newsID =  $_POST['delegate_sID'];
+     $oldID =  $_POST['oldsID'];
      $pID = $_POST['pID'];
      $aDate = $_POST['aDate'];
      $aTime =  $_POST['aTime'];
 
-
+     
+     echo "<p> $newsID </p>"; 
+     echo "<p> $oldID </p>";
+     echo "<p> $pID </p>";
+     echo "<p> $aDate </p>";
+     echo "<p> $aTime </p>";
+    
          // Credentials are correct, proceed with login
- 
+ /*
      try {
              $conn = new PDO("mysql:host=$host;dbname=$dbname", $user, $pwd);
              $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);    
@@ -34,6 +40,7 @@ session_start();
                        AND aTime = '$aTime'
                       AND pID = '$pID'
                       AND sID = '$oldID';";
+                      
              $handle = $conn->prepare($sql);
              $handle->execute();
  
@@ -46,7 +53,8 @@ session_start();
            
         header("Location: staff.php");
         exit();
-    
+
+  */  
 ?>
 </body>
 </html>

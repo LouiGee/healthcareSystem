@@ -1,0 +1,5 @@
+UPDATE Appointment SET sID = '3' 
+                     WHERE aDate = '2024-02-29'
+                       AND aTime = '11:10:00'
+                      AND pID = '2'
+                      AND sID = '1';
