@@ -58,10 +58,10 @@
 	$user = 'lg565';
 	$pwd = 'rles3ev';
 
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	$_SESSION['name'] = htmlspecialchars($_POST['name']);
     $_SESSION['staffID'] = htmlspecialchars($_POST['staffID']);
-
-
+    }
 
     $conn = new PDO("mysql:host=$host;dbname=$dbname", $user, $pwd);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

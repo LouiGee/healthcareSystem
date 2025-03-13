@@ -7,19 +7,24 @@
 </head>
 <body>
 <?php
+
+session_start();
+
      $host = 'dragon.ukc.ac.uk';
      $dbname = 'lg565';
      $user = 'lg565';
      $pwd = 'rles3ev';
 
+     
      $newsID =  $_POST['newsID'];
      $oldID =  $_POST['oldID'];
      $pID = $_POST['pID'];
      $aDate = $_POST['aDate'];
      $aTime =  $_POST['aTime'];
 
+
          // Credentials are correct, proceed with login
-         
+ 
      try {
              $conn = new PDO("mysql:host=$host;dbname=$dbname", $user, $pwd);
              $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);    
@@ -38,8 +43,7 @@
       } catch (PDOException $e) {
          echo "PDOException: ".$e->getMessage();
          }
-     
-         // Credentials are incorrect, redirect to error page
+           
         header("Location: staff.php");
         exit();
     
