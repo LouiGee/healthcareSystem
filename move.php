@@ -87,7 +87,8 @@ foreach($res as $row) {
 echo "</td><td>".$row['sName']."</td><td>".$row['sType']."</td><td>".$row['sID']."</td><td>";
 
 echo "<div class='d-flex justify-content-center'> 
-        <input type='radio' name='delegate_sID' value='".$row['sID']."'> </div>
+        <input type='radio' name='delegate_sID' value='".$row['sID']."'> 
+        </div>
         </td></tr>";
 }
 echo "</table>";
