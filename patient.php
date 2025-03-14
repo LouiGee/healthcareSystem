@@ -3,56 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title> 
-    
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
-        .container {
-            background-color: #ffffff;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            width: 600px;
-            margin: 20px auto;
-        }
-        .header {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .info, .appointments, .prescriptions {
-            border: 1px solid #ccc;
-            padding: 10px;
-            margin-bottom: 20px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        th, td {
-            border-bottom: 1px solid #ddd;
-            padding: 8px;
-            text-align: left; 
-        }
-        button {
-            display: inline-block;
-            margin-top: 10px;
-        }
-    </style>
+    <title>Index</title> 
 </head>
 <body>
-
 <?php
-session_start();
 
-$host = 'dragon.ukc.ac.uk';
-$dbname = 'lg565';
-$user = 'lg565';
-$pwd = 'rles3ev';
-
-
-//Define session variables only when page is accessed from the login page html specialchars used to santitise input
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $_SESSION['name'] = htmlspecialchars($_POST['name']);
     $_SESSION['staffID'] = htmlspecialchars($_POST['staffID']);
@@ -185,7 +140,9 @@ if (count($result) > 0) {
     exit();
 }
 
-?>
 
+
+    echo "<p> Welcome patient </p>"; 
+?>
 </body>
 </html>
