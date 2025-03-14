@@ -16,36 +16,26 @@ session_start();
      $pwd = 'rles3ev';
 
      $submittedData = $_POST['delete'];
-
-     print_r( $submittedData );
      
-
-
          // Credentials are correct, proceed with login
  
-     //foreach ($submittedData as $row) {
+     foreach ($submittedData as $row) {
 
-       // echo "{$row['Patient']}";
-       // echo "{$row['mID']}";
+        $parts = explode('_', $row);
 
-     //}
-
-     /*
 
         try {
                 $conn = new PDO("mysql:host=$host;dbname=$dbname", $user, $pwd);
                 $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);    
         
-                $sql = "UPDATE Appointment SET sID = '$newsID' 
-                        WHERE aDate = '$aDate'
-                        AND aTime = '$aTime'
-                        AND pID = '$pID'
-                        AND sID = '$oldID';";
+                $sql = "DELETE FROM Patient_Staff_Medication  
+                        WHERE mID = '$parts[0]'
+                        AND pID = '$parts[1]';";
                         
                 $handle = $conn->prepare($sql);
                 $handle->execute();
 
-                $result = $handle->fetchAll(PDO::FETCH_ASSOC);
+                // $result = $handle->fetchAll(PDO::FETCH_ASSOC);
 
     
             // code that uses $conn
@@ -55,10 +45,10 @@ session_start();
             echo "PDOException: ".$e->getMessage();
             }
             
+        }
             header("Location: staff.php");
             exit();
 
-  */
 ?>
 </body>
 </html>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Appointments</title> 
+    <title>Home</title> 
     
     <style>
         body {
@@ -60,7 +60,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 try {
     
-    echo "<h1 class='header'>COMP 8870 Healthcare Appointments</h1>";
+    echo "<h1 class='header'>COMP 8870 Healthcare</h1>";
 
     echo "<div class='container'>";
     echo "<strong>Doctor Information:</strong> Displaying information for {$_SESSION['name']} (sID = {$_SESSION['staffID']})";
@@ -122,6 +122,7 @@ try {
 
     echo "<div class='container'>";
     echo "<h2 class='header'>Prescriptions</h2>";
+    echo "<form action='delete.php' method='post'>";
     echo "<table>";
     echo "<tr><th>Patient</th><th>mID</th><th>Date</th><th>Name</th><th>Dosage</th><th>Price</th><th>Delete</th></tr>";
 
@@ -129,10 +130,10 @@ try {
         echo "<tr>";
         echo "<td>{$row['Patient']}</td><td>{$row['mID']}</td><td>{$row['Date']}</td><td>{$row['Name']}</td><td>{$row['Dosage']}</td><td>{$row['Price']}</td>";
         echo "<td>
-                <form action='delete.php' method='post'>
+                
                     <input type='hidden' name='pID' value='{$row['Patient']}'>
                     <input type='hidden' name='mID' value='{$row['mID']}'>
-                    <input type='checkbox' name='delete[]' value='{$row['mID']['Patient']}'>
+                    <input type='checkbox' name='delete[]' value='{$row['mID']}_{$row['Patient']}'>
 
                  
               </td>";
