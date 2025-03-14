@@ -92,7 +92,7 @@ try {
 
     foreach ($resAppointments as $row) {
         echo "<tr>";
-        echo "<td>{$row['pName']}</td><td>{$row['aDate']}</td><td>{$row['aTime']}</td>";
+        echo "<td>{$row['pName']} (pID {$row['pID']})</td><td>{$row['aDate']}</td><td>{$row['aTime']}</td>";
         echo "<td>
                 <form action='move.php' method='post'>
                     <input type='hidden' name='sID' value='{$_SESSION['staffID']}'>

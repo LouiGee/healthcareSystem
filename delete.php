@@ -31,6 +31,8 @@ session_start();
                 $sql = "DELETE FROM Patient_Staff_Medication  
                         WHERE mID = '$parts[0]'
                         AND pID = '$parts[1]';";
+                
+                //No need to bind parameters because values are not input values
                         
                 $handle = $conn->prepare($sql);
                 $handle->execute();

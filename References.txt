@@ -1,0 +1,1 @@
+CHATGPT used in debugging and to help with syntax i.e explode but ideas on code architecture and completly my own

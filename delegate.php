@@ -34,6 +34,8 @@ session_start();
                       AND pID = '$pID'
                       AND sID = '$oldID';";
                       
+             //No need to bind parameters because values are not input values
+                      
              $handle = $conn->prepare($sql);
              $handle->execute();
 

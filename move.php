@@ -76,36 +76,38 @@ try {
     $handle->execute();
     $res = $handle->fetchAll();
 
-echo "<div class='container'>";
+    //No need to bind parameters because values are not input values
 
-echo "<form action='delegate.php' method='post'>";
-echo "<table>";
-echo "<tr><th>Name</th><th>Type</th><th>sID</th><th></tr>";
+    echo "<div class='container'>";
 
-foreach($res as $row) {
+    echo "<form action='delegate.php' method='post'>";
+    echo "<table>";
+    echo "<tr><th>Name</th><th>Type</th><th>sID</th><th></tr>";
 
-echo "</td><td>".$row['sName']."</td><td>".$row['sType']."</td><td>".$row['sID']."</td><td>";
+    foreach($res as $row) {
 
-echo "<div class='d-flex justify-content-center'> 
-        <input type='radio' name='delegate_sID' value='".$row['sID']."'> 
-        </div>
+        echo "</td><td>".$row['sName']."</td><td>".$row['sType']."</td><td>".$row['sID']."</td><td>";
+
+        echo "<div class='d-flex justify-content-center'> 
+                <input type='radio' name='delegate_sID' value='".$row['sID']."'> 
+                </div>
         </td></tr>";
-}
-echo "</table>";
-echo " <input type='hidden' name='oldsID' value='".$sID."'>
-       <input type='hidden' name='aDate' value='".$aDate."'>
-       <input type='hidden' name='aTime' value='".$aTime."'>
-       <input type='hidden' name='pID' value='".$pID."'>";
+    }
+    echo "</table>";
+    echo " <input type='hidden' name='oldsID' value='".$sID."'>
+            <input type='hidden' name='aDate' value='".$aDate."'>
+            <input type='hidden' name='aTime' value='".$aTime."'>
+            <input type='hidden' name='pID' value='".$pID."'>";
 
-echo  "<button class='btn btn-primary' type='submit'> Delegate</button></th></tr>";
-echo  "</form>";
+    echo  "<button class='btn btn-primary' type='submit'> Delegate</button></th></tr>";
+    echo  "</form>";
 
-echo "</div>";
-// code that uses $conn
-$conn = null; 
-} catch (PDOException $e) {
-echo "PDOException: ".$e->getMessage();
-}
+    echo "</div>";
+    // code that uses $conn
+    $conn = null; 
+    } catch (PDOException $e) {
+        echo "PDOException: ".$e->getMessage();
+    }
      
 ?>
 
