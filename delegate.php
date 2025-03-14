@@ -21,28 +21,24 @@ session_start();
      $pID = $_POST['pID'];
      $aDate = $_POST['aDate'];
      $aTime =  $_POST['aTime'];
-
      
-     echo "<p> $newsID </p>"; 
-     echo "<p> $oldID </p>";
-     echo "<p> $pID </p>";
-     echo "<p> $aDate </p>";
-     echo "<p> $aTime </p>";
-    
          // Credentials are correct, proceed with login
- /*
+ 
      try {
              $conn = new PDO("mysql:host=$host;dbname=$dbname", $user, $pwd);
              $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);    
      
              $sql = "UPDATE Appointment SET sID = '$newsID' 
-                     WHERE Date = '$date'
+                     WHERE aDate = '$aDate'
                        AND aTime = '$aTime'
                       AND pID = '$pID'
                       AND sID = '$oldID';";
                       
              $handle = $conn->prepare($sql);
              $handle->execute();
+
+             $result = $handle->fetchAll(PDO::FETCH_ASSOC);
+
  
          // code that uses $conn
          $conn = null; 
@@ -54,7 +50,7 @@ session_start();
         header("Location: staff.php");
         exit();
 
-  */  
+  
 ?>
 </body>
 </html>
