@@ -132,14 +132,16 @@ try {
                 <form action='delete.php' method='post'>
                     <input type='hidden' name='pID' value='{$row['Patient']}'>
                     <input type='hidden' name='mID' value='{$row['mID']}'>
-                    <input type='checkbox' name='delete[]' value='{$row['mID']}'>
-                </form> 
+                    <input type='checkbox' name='delete[]' value='{$row['mID']['Patient']}'>
+
+                 
               </td>";
         echo "</tr>";
     }
 
     echo "</table>";
     echo "<button id = 'enter button' type='submit' class='btn'>Delete</button>";
+    echo "</form>";
     echo "</div>";
 
     $conn = null;

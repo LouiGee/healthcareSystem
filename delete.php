@@ -15,42 +15,50 @@ session_start();
      $user = 'lg565';
      $pwd = 'rles3ev';
 
+     $submittedData = $_POST['delete'];
+
+     print_r( $submittedData );
      
-     $newsID =  $_POST['delegate_sID'];
-     $oldID =  $_POST['oldsID'];
-     $pID = $_POST['pID'];
-     $aDate = $_POST['aDate'];
-     $aTime =  $_POST['aTime'];
-     
+
+
          // Credentials are correct, proceed with login
  
-     try {
-             $conn = new PDO("mysql:host=$host;dbname=$dbname", $user, $pwd);
-             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);    
-     
-             $sql = "UPDATE Appointment SET sID = '$newsID' 
-                     WHERE aDate = '$aDate'
-                       AND aTime = '$aTime'
-                      AND pID = '$pID'
-                      AND sID = '$oldID';";
-                      
-             $handle = $conn->prepare($sql);
-             $handle->execute();
+     //foreach ($submittedData as $row) {
 
-             $result = $handle->fetchAll(PDO::FETCH_ASSOC);
+       // echo "{$row['Patient']}";
+       // echo "{$row['mID']}";
 
- 
-         // code that uses $conn
-         $conn = null; 
+     //}
 
-      } catch (PDOException $e) {
-         echo "PDOException: ".$e->getMessage();
-         }
-           
-        header("Location: staff.php");
-        exit();
+     /*
 
-  
+        try {
+                $conn = new PDO("mysql:host=$host;dbname=$dbname", $user, $pwd);
+                $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);    
+        
+                $sql = "UPDATE Appointment SET sID = '$newsID' 
+                        WHERE aDate = '$aDate'
+                        AND aTime = '$aTime'
+                        AND pID = '$pID'
+                        AND sID = '$oldID';";
+                        
+                $handle = $conn->prepare($sql);
+                $handle->execute();
+
+                $result = $handle->fetchAll(PDO::FETCH_ASSOC);
+
+    
+            // code that uses $conn
+            $conn = null; 
+
+        } catch (PDOException $e) {
+            echo "PDOException: ".$e->getMessage();
+            }
+            
+            header("Location: staff.php");
+            exit();
+
+  */
 ?>
 </body>
 </html>
