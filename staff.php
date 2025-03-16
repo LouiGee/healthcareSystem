@@ -65,14 +65,10 @@ $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 // Prepare 
  
-// Retrieve Appointments
-$stmtValidation = $conn->prepare("SELECT sName, pName, aDate, aTime, p.pID as pID 
-            FROM Appointment a 
-            LEFT JOIN Patient p 
-            ON a.pID = p.pID
-            LEFT JOIN Staff s
-            ON a.sID = s.sID 
-            WHERE s.sName = :name AND a.sID = :staffID ;");
+// Retrieve staff member 
+$stmtValidation = $conn->prepare("SELECT *
+            FROM Staff
+            WHERE sName = :name AND sID = :staffID ;");
  
  $stmtValidation->bindParam(':name', $_SESSION['name']);
  $stmtValidation->bindParam(':staffID', $_SESSION['staffID']);
@@ -85,7 +81,7 @@ $result = $stmtValidation->fetchAll(PDO::FETCH_ASSOC);
 
 
 if (count($result) > 0) {
-
+//If correct credentials then staff details will be returned by sql statement
 
     try {
         
@@ -114,6 +110,7 @@ if (count($result) > 0) {
 
         $resAppointments = $stmtAppointments->fetchAll();
 
+        //Appointments Table
         echo "<div class='container'>";
         echo "<h2 class='header'>Appointments</h2>";
         echo "<table>";
@@ -143,12 +140,13 @@ if (count($result) > 0) {
                     WHERE p.sID = :staffID 
                     ORDER BY p.pID, p.mID, p.psmDate DESC;");
 
-        // Binding helps prevent SQL injection attacks
+        // Binding helps prevent SQL injection attacks though possibily not needed as not working with input values
         $stmtPrescriptions->bindParam(':staffID', $_SESSION['staffID']);
         $stmtPrescriptions->execute();
 
         $resPrescriptions = $stmtPrescriptions->fetchAll();
 
+        //Prescriptions table
         echo "<div class='container'>";
         echo "<h2 class='header'>Prescriptions</h2>";
         echo "<form action='delete.php' method='post'>";

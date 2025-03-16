@@ -7,7 +7,7 @@
 </head>
 <body>
 <?php
-    echo "<p> You are here because you have entered incorrect staff credentials or you pressed 'exit' </p>"; 
+    echo "<p> You are here because you have entered incorrect staff/patient credentials or you pressed the 'exit' button </p>"; 
 ?>
 </body>
 </html>

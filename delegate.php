@@ -21,12 +21,12 @@ session_start();
      $pID = $_POST['pID'];
      $aDate = $_POST['aDate'];
      $aTime =  $_POST['aTime'];
-     
-         // Credentials are correct, proceed with login
  
      try {
              $conn = new PDO("mysql:host=$host;dbname=$dbname", $user, $pwd);
-             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);    
+             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);   
+             
+             //Update SQL statement
      
              $sql = "UPDATE Appointment SET sID = '$newsID' 
                      WHERE aDate = '$aDate'

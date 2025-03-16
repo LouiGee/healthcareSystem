@@ -64,6 +64,7 @@ echo "<h1 class = 'header'> COMP 8870 Healthcare Delegation </h1>";
 echo "<div class='container'> Alternatives for appointment on at by sID = $sID <button class='btn btn-primary' onclick=\"window.location.href='index.php';\">Exit</button> </div>";
 
 try {
+
     $conn = new PDO("mysql:host=$host;dbname=$dbname", $user, $pwd);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);    
 
@@ -78,8 +79,9 @@ try {
 
     //No need to bind parameters because values are not input values
 
-    echo "<div class='container'>";
+    // Delegate table 
 
+    echo "<div class='container'>";
     echo "<form action='delegate.php' method='post'>";
     echo "<table>";
     echo "<tr><th>Name</th><th>Type</th><th>sID</th><th></tr>";
