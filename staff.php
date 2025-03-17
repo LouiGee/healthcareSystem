@@ -134,11 +134,11 @@ if (count($result) > 0) {
         echo "</div>";
 
         // Retrieve Prescriptions
-        $stmtPrescriptions = $conn->prepare("SELECT pID AS Patient, m.mID, psmDate AS Date, mName AS Name, mDosage AS Dosage, quantity*cost AS Price
+        $stmtPrescriptions = $conn->prepare("SELECT pID AS Patient, m.mID, prDate AS Date, mName AS Name, mDosage AS Dosage, prprice AS Price
                     FROM Medication m 
-                    JOIN Patient_Staff_Medication p ON m.mID = p.mID 
+                    JOIN Prescription p ON m.mID = p.mID 
                     WHERE p.sID = :staffID 
-                    ORDER BY p.pID, p.mID, p.psmDate DESC;");
+                    ORDER BY p.pID, p.mID, p.prDate DESC;");
 
         // Binding helps prevent SQL injection attacks though possibily not needed as not working with input values
         $stmtPrescriptions->bindParam(':staffID', $_SESSION['staffID']);

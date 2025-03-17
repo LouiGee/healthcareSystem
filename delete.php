@@ -28,7 +28,7 @@ session_start();
                 $conn = new PDO("mysql:host=$host;dbname=$dbname", $user, $pwd);
                 $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);    
         
-                $sql = "DELETE FROM Patient_Staff_Medication  
+                $sql = "DELETE FROM Prescription 
                         WHERE mID = '$parts[0]'
                         AND pID = '$parts[1]';";
                 
