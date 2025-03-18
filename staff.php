@@ -52,7 +52,7 @@ $user = 'lg565';
 $pwd = 'rles3ev';
 
 
-//Define session variables only when page is accessed from the login page html specialchars used to santitise input
+//Define session variables only when page is accessed from the login page html specialchars used to santitise input i.e prevent sql injection
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $_SESSION['name'] = htmlspecialchars($_POST['name']);
     $_SESSION['staffID'] = htmlspecialchars($_POST['staffID']);
@@ -60,23 +60,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
 //Validation
+
+//Config data
 $conn = new PDO("mysql:host=$host;dbname=$dbname", $user, $pwd);
 $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-// Prepare 
  
 // Retrieve staff member 
 $stmtValidation = $conn->prepare("SELECT *
             FROM Staff
             WHERE sName = :name AND sID = :staffID ;");
  
+ // Binding helps prevent SQL injection attacks
  $stmtValidation->bindParam(':name', $_SESSION['name']);
  $stmtValidation->bindParam(':staffID', $_SESSION['staffID']);
 
 // Execute the statement
 $stmtValidation->execute();
 
-// Get the result
+// Get the result from SQL query
 $result = $stmtValidation->fetchAll(PDO::FETCH_ASSOC);
 
 

@@ -21,6 +21,7 @@ session_start();
  
      foreach ($submittedData as $row) {
 
+        // mid and PatientID array
         $parts = explode('_', $row);
 
 
