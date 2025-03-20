@@ -122,20 +122,25 @@
         </div>
 
         
-        <button onclick="showForm('formUser')" class="btn" style="background-color: #003087;">User Login</button>
+        <button onclick="showForm('formUser')" class="btn" style="background-color: #003087;">Patient Login</button>
         <button onclick="showForm('formStaff')" class="btn" style="background-color: #41B6E6;">Staff Login</button>
           
 
         <form id = 'formUser' action="patient.php" method="post" class = "form" >
             
-            <h2>User Login</h2>
+            <h2>Patient Login</h2>
             
             <div class="divider">
                 <span>2.Enter credentials</span>
             </div> 
 
-            <input type="text" class="input-field" placeholder="Enter Patient ID" name="patientID" required>
-            <input type="text" class="input-field" placeholder="Enter NHS Number" Name ="NHSNumber" required> 
+            <input type="text" class="input-field" placeholder="Enter Patient ID" name="patientID" >
+
+            <div class="divider">
+                <span>OR</span>
+            </div> 
+
+            <input type="text" class="input-field" placeholder="Enter NHS Number" Name ="NHSNumber" > 
             
             <div class="divider">
                 <span>3.Press enter</span>
